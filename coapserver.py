@@ -43,7 +43,9 @@ class DepartureResource(resource.ObservableResource):
         else:
             return aiocoap.Message(code=aiocoap.NOT_FOUND, payload='Station not found'.encode('ascii'))
 
-        return aiocoap.Message(code=aiocoap.CONTENT, payload=payload.encode('UTF-8'))
+        response = aiocoap.Message(code=aiocoap.CONTENT, payload=payload.encode('UTF-8'))
+        response.opt.content_format = aiocoap.numbers.media_types_rev['application/json']
+        return response
 
 
 def main():
